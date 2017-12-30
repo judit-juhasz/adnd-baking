@@ -16,12 +16,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     private final static String LOG_TAG = RecipeAdapter.class.getSimpleName();
 
     public interface OnClickListener {
-        void onRecipeListItemClick(Recipe recipe);
+        void onRecipeListItemClick(final Recipe recipe);
     }
 
     private Recipe[] mRecipes = null;
 
-    public void setRecipesData(Recipe[] recipes) {
+    public void setRecipesData(final Recipe[] recipes) {
         this.mRecipes = recipes;
         notifyDataSetChanged();
     }
@@ -29,21 +29,21 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     private RecipeAdapter.OnClickListener mListener;
 
     @Override
-    public RecipeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
+    public RecipeViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+        final Context context = parent.getContext();
 
         final int layoutIdForListItem = R.layout.item_recipe;
-        LayoutInflater inflater = LayoutInflater.from(context);
+        final LayoutInflater inflater = LayoutInflater.from(context);
         final boolean shouldAttachToParentImmediately = false;
 
-        View view = inflater.inflate(layoutIdForListItem, parent, shouldAttachToParentImmediately);
-        RecipeViewHolder viewHolder = new RecipeViewHolder(view);
+        final View view = inflater.inflate(layoutIdForListItem, parent, shouldAttachToParentImmediately);
+        final RecipeViewHolder viewHolder = new RecipeViewHolder(view);
 
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(RecipeViewHolder holder, int position) {
+    public void onBindViewHolder(final RecipeViewHolder holder, final int position) {
         final Recipe recipe = mRecipes[position];
         holder.bind(recipe);
     }
@@ -67,7 +67,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         private TextView mServings;
 
 
-        public RecipeViewHolder(View itemView) {
+        public RecipeViewHolder(final View itemView) {
             super(itemView);
 
             mRecipeName = (TextView) itemView.findViewById(R.id.tv_recipe_name);
@@ -75,15 +75,15 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             itemView.setOnClickListener(this);
         }
 
-        void bind(Recipe recipe) {
-            String nameOfRecipe = recipe.getName();
+        void bind(final Recipe recipe) {
+            final String nameOfRecipe = recipe.getName();
             mRecipeName.setText(nameOfRecipe);
-            Integer servings = recipe.getServings();
+            final Integer servings = recipe.getServings();
             mServings.setText(servings.toString());
         }
 
         @Override
-        public void onClick(View view) {
+        public void onClick(final View view) {
             if(null != mRecipes) {
                 final int adapterPosition = getAdapterPosition();
                 final Recipe recipe = mRecipes[adapterPosition];

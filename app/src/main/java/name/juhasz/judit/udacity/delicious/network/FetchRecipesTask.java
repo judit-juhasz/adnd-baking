@@ -57,7 +57,7 @@ public class FetchRecipesTask extends AsyncTask<Void, Void, Recipe[]> {
     }
 
     @Override
-    protected void onPostExecute(Recipe[] recipes) {
+    protected void onPostExecute(final Recipe[] recipes) {
         notifyAboutTaskCompletion(recipes);
     }
 
@@ -66,7 +66,7 @@ public class FetchRecipesTask extends AsyncTask<Void, Void, Recipe[]> {
         notifyAboutTaskCompletion(null);
     }
 
-    private void notifyAboutTaskCompletion(Recipe[] recipes) {
+    private void notifyAboutTaskCompletion(final Recipe[] recipes) {
         if (null == mListener) {
             Log.w(LOG_TAG, "Nobody is listening for FetchRecipesTask.");
         } else {

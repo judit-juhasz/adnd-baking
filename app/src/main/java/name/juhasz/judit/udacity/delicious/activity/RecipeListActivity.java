@@ -18,11 +18,11 @@ public class RecipeListActivity extends AppCompatActivity implements
     private RecipeAdapter mAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
 
-        RecyclerView recipesRecycleView = (RecyclerView) findViewById(R.id.rv_recipes);
+        final RecyclerView recipesRecycleView = (RecyclerView) findViewById(R.id.rv_recipes);
         final RecipeAdapter.OnClickListener listener = this;
 
         mAdapter = new RecipeAdapter(listener);
@@ -34,21 +34,22 @@ public class RecipeListActivity extends AppCompatActivity implements
             spanCount = 3;
         }
 
-        GridLayoutManager layoutManager = new GridLayoutManager(this, spanCount);
+        final GridLayoutManager layoutManager = new GridLayoutManager(this, spanCount);
         recipesRecycleView.setLayoutManager(layoutManager);
 
         new FetchRecipesTask(this).execute();
     }
 
     @Override
-    public void onFetchRecipesFinished(Recipe[] recipes) {
+    public void onFetchRecipesFinished(final Recipe[] recipes) {
         mAdapter.setRecipesData(recipes);
     }
 
     @Override
-    public void onRecipeListItemClick(Recipe recipe) {
+    public void onRecipeListItemClick(final Recipe recipe) {
         final Intent intentToStartRecipeDetailActivity =
                 new Intent(this, RecipeDetailActivity.class);
+        intentToStartRecipeDetailActivity.putExtra(RecipeDetailActivity.RECIPE_DATA, recipe);
         startActivity(intentToStartRecipeDetailActivity);
     }
 }
