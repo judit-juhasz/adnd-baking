@@ -1,5 +1,6 @@
 package name.juhasz.judit.udacity.delicious.activity;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -46,6 +47,8 @@ public class RecipeListActivity extends AppCompatActivity implements
 
     @Override
     public void onRecipeListItemClick(Recipe recipe) {
-
+        final Intent intentToStartRecipeDetailActivity =
+                new Intent(this, RecipeDetailActivity.class);
+        startActivity(intentToStartRecipeDetailActivity);
     }
 }
