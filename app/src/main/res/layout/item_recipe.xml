@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_marginRight="12dp"
+    android:layout_marginLeft="12dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardPreventCornerOverlap="true"
+        card_view:cardCornerRadius = "6dp"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_recipe_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:layout_alignParentStart="true"
+                card_view:ignore="RelativeOverlap" />
+
+            <TextView
+                android:id="@+id/tv_servings_label_text"
+                android:text="@string/servings_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorSecondary"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/tv_recipe_name"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:id="@+id/tv_servings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorSecondary"
+                android:layout_toRightOf="@id/tv_servings_label_text"
+                android:layout_alignParentBottom="true"
+                android:paddingLeft="12dp"
+                android:paddingStart="12dp"
+                android:layout_toEndOf="@id/tv_servings_label_text"
+                card_view:ignore="RtlSymmetry" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_cake_black_24dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                card_view:ignore="ContentDescription" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>
