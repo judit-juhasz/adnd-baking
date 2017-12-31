@@ -5,15 +5,20 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import java.util.List;
+
 import name.juhasz.judit.udacity.delicious.R;
 import name.juhasz.judit.udacity.delicious.adapter.StepAdapter;
 import name.juhasz.judit.udacity.delicious.fragment.RecipeDetailFragment;
+import name.juhasz.judit.udacity.delicious.fragment.StepDetailFragment;
 import name.juhasz.judit.udacity.delicious.model.Recipe;
 import name.juhasz.judit.udacity.delicious.model.Step;
 
 public class RecipeDetailActivity extends AppCompatActivity implements StepAdapter.OnClickListener {
 
     public static final String RECIPE_DATA = "RECIPE_DATA";
+
+    private boolean mTwoPaneMode;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -35,14 +40,44 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepAdapt
             fragmentManager.beginTransaction()
                     .add(R.id.container_recipe_details, fragment)
                     .commit();
+
+            mTwoPaneMode = isTwoPaneMode();
+            if (mTwoPaneMode) {
+                final List<Step> steps = recipe.getSteps();
+                final Step firstStep = steps.get(0);
+                if (null != firstStep) {
+                    setStepDetailFragment(firstStep);
+                }
+            }
         }
     }
 
     @Override
     public void onStepListItemClick(final Step step) {
-        final Intent intentToStartStepDetailActivity =
-                new Intent(this, StepDetailActivity.class);
-        intentToStartStepDetailActivity.putExtra(StepDetailActivity.STEP_DATA, step);
-        startActivity(intentToStartStepDetailActivity);
+        if (mTwoPaneMode) {
+            setStepDetailFragment(step);
+        } else {
+            final Intent intentToStartStepDetailActivity =
+                    new Intent(this, StepDetailActivity.class);
+            intentToStartStepDetailActivity.putExtra(StepDetailActivity.STEP_DATA, step);
+            startActivity(intentToStartStepDetailActivity);
+        }
+    }
+
+    private void setStepDetailFragment(final Step step) {
+        final StepDetailFragment fragment = new StepDetailFragment();
+        final Bundle arguments = new Bundle();
+        arguments.putParcelable(StepDetailFragment.STEP_DATA, step);
+        fragment.setArguments(arguments);
+
+        final FragmentManager fragmentManager = getSupportFragmentManager();
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.container_step_details, fragment)
+                .commit();
+    }
+
+    private boolean isTwoPaneMode() {
+        return findViewById(R.id.container_step_details) != null;
     }
 }
