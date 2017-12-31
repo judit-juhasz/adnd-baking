@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Delicious</string>
     <string name="servings_label">Servings: </string>
+    <string name="ingredients_label">Ingredients</string>
+    <string name="steps_label">Steps</string>
 </resources>
