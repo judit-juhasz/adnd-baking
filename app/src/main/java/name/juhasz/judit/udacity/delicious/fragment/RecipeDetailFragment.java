@@ -1,5 +1,7 @@
 package name.juhasz.judit.udacity.delicious.fragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,6 +25,26 @@ public class RecipeDetailFragment extends Fragment {
 
     public static final String RECIPE_DATA = "RECIPE_DATA";
 
+    private StepAdapter mStepAdapter;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            mStepAdapter = new StepAdapter((StepAdapter.OnClickListener) context);
+        } catch(ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement " +
+                    StepAdapter.OnClickListener.class.getSimpleName());
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mStepAdapter.setSteps(null);
+    }
+
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater,
@@ -41,10 +63,9 @@ public class RecipeDetailFragment extends Fragment {
         ingredientsRecycleView.setAdapter(ingredientAdapter);
 
         final RecyclerView stepsRecycleView = rootView.findViewById(R.id.rv_steps);
-        final StepAdapter stepAdapter = new StepAdapter(null);
         final List<Step> steps = recipe.getSteps();
-        stepAdapter.setSteps(steps.toArray(new Step[steps.size()]));
-        stepsRecycleView.setAdapter(stepAdapter);
+        mStepAdapter.setSteps(steps.toArray(new Step[steps.size()]));
+        stepsRecycleView.setAdapter(mStepAdapter);
 
         return rootView;
     }

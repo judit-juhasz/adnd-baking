@@ -37,6 +37,10 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
         this.mSteps = steps;
     }
 
+    public void setListener(final OnClickListener listener) {
+        mListener = listener;
+    }
+
     public StepAdapter(final OnClickListener listener) {
         mListener = listener;
     }

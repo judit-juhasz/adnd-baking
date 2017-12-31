@@ -6,10 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import name.juhasz.judit.udacity.delicious.R;
+import name.juhasz.judit.udacity.delicious.adapter.StepAdapter;
 import name.juhasz.judit.udacity.delicious.fragment.RecipeDetailFragment;
 import name.juhasz.judit.udacity.delicious.model.Recipe;
+import name.juhasz.judit.udacity.delicious.model.Step;
 
-public class RecipeDetailActivity extends AppCompatActivity {
+public class RecipeDetailActivity extends AppCompatActivity implements StepAdapter.OnClickListener {
 
     public static final String RECIPE_DATA = "RECIPE_DATA";
 
@@ -34,5 +36,10 @@ public class RecipeDetailActivity extends AppCompatActivity {
                     .add(R.id.container_recipe_details, fragment)
                     .commit();
         }
+    }
+
+    @Override
+    public void onStepListItemClick(Step step) {
+
     }
 }
