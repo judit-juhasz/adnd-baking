@@ -25,12 +25,12 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepAdapt
         if (null != intent && intent.hasExtra(RECIPE_DATA)) {
             final Recipe recipe = intent.getParcelableExtra(RECIPE_DATA);
 
-            RecipeDetailFragment fragment = new RecipeDetailFragment();
+            final RecipeDetailFragment fragment = new RecipeDetailFragment();
             final Bundle arguments = new Bundle();
             arguments.putParcelable(RecipeDetailFragment.RECIPE_DATA, recipe);
             fragment.setArguments(arguments);
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
+            final FragmentManager fragmentManager = getSupportFragmentManager();
 
             fragmentManager.beginTransaction()
                     .add(R.id.container_recipe_details, fragment)
@@ -39,7 +39,10 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepAdapt
     }
 
     @Override
-    public void onStepListItemClick(Step step) {
-
+    public void onStepListItemClick(final Step step) {
+        final Intent intentToStartStepDetailActivity =
+                new Intent(this, StepDetailActivity.class);
+        intentToStartStepDetailActivity.putExtra(StepDetailActivity.STEP_DATA, step);
+        startActivity(intentToStartStepDetailActivity);
     }
 }
