@@ -5,6 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/b_send_to_widget"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_label_send_to_widget" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

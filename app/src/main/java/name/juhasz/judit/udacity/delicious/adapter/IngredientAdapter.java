@@ -13,6 +13,11 @@ import name.juhasz.judit.udacity.delicious.model.Ingredient;
 public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder>{
 
     private Ingredient[] mIngredients = null;
+    private Context mContext = null;
+
+    public IngredientAdapter(final Context context) {
+        mContext = context;
+    }
 
     @Override
     public IngredientViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
@@ -59,10 +64,11 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
 
         void bind(final int position) {
             final Ingredient ingredient = mIngredients[position];
-            final Double quantity = ingredient.getQuantity();
-            final String measure = ingredient.getMeasure();
-            final String name = ingredient.getIngredientName();
-            ingredientTextView.setText(quantity + " " + measure + " " + name);
+            final String ingredientText = mContext.getString(R.string.ingredient_format,
+                    String.valueOf(ingredient.getQuantity()),
+                    ingredient.getMeasure(),
+                    ingredient.getIngredientName());
+            ingredientTextView.setText(ingredientText);
         }
     }
 }
