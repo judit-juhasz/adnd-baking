@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ import name.juhasz.judit.udacity.delicious.model.Step;
 public class StepDetailFragment extends Fragment {
 
     public static final String STEP_DATA = "STEP_DATA";
+    public static final String FULLSCREEN_VIDEO = "FULLSCREEN_VIDEO";
 
     private SimpleExoPlayer mVideoPlayer = null;
 
@@ -79,6 +81,18 @@ public class StepDetailFragment extends Fragment {
                     dataSourceFactory, extractorsFactory, null, null);
             // Prepare the player with the source.
             mVideoPlayer.prepare(videoSource);
+
+            // Fullscreen
+            if (arguments.getBoolean(FULLSCREEN_VIDEO, false)) {
+                visualizationSimpleExoPlayerView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        final int fullscreenHeight = rootView.getLayoutParams().height;
+                        visualizationSimpleExoPlayerView.getLayoutParams().height = fullscreenHeight;
+                        visualizationSimpleExoPlayerView.requestLayout();
+                    }
+                });
+            }
         } else {
             visualizationSimpleExoPlayerView.setVisibility(View.GONE);
         }
