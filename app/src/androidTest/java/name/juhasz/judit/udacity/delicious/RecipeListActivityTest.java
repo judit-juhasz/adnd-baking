@@ -24,6 +24,7 @@ public class RecipeListActivityTest {
     @Rule
     public IntentsTestRule<RecipeListActivity> mRecipeListActivityTestRule =
             new IntentsTestRule<RecipeListActivity>(RecipeListActivity.class);
+
     @Test
     public void clickOnRecipeListItem_opensRecipeDetailsActivity() throws Exception {
         // Given: A RecipeListActivity with at least one element (downloaded from a server)
