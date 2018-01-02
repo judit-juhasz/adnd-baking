@@ -30,6 +30,8 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepAdapt
         if (null != intent && intent.hasExtra(RECIPE_DATA)) {
             final Recipe recipe = intent.getParcelableExtra(RECIPE_DATA);
 
+            setTitle(recipe.getName());
+
             final RecipeDetailFragment fragment = new RecipeDetailFragment();
             final Bundle arguments = new Bundle();
             arguments.putParcelable(RecipeDetailFragment.RECIPE_DATA, recipe);
