@@ -47,14 +47,4 @@
         android:padding="10dp"
         android:layout_margin="10dp"/>
 
-    <Button
-        android:id="@+id/b_send_to_widget"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_label_send_to_widget"
-        android:background="#FD8E09"
-        android:textColor="#ffffff"
-        android:layout_gravity="right"
-        android:layout_margin="10dp"/>
-
 </LinearLayout>

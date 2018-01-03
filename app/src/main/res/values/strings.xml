@@ -4,7 +4,7 @@
     <string name="ingredients_label">Ingredients</string>
     <string name="ingredient_format"><xliff:g id="amount" example="1.2">%s</xliff:g> <xliff:g id="unit" example="Kg">%s</xliff:g> <xliff:g id="ingredient" example="Salt">%s</xliff:g></string>
     <string name="steps_label">Steps</string>
-    <string name="button_label_send_to_widget">Send to widget</string>
+    <string name="label_send_to_widget">Send to widget</string>
     <string name="widget_title_no_selection">Ingredients</string>
     <string name="widget_title">Ingredients of <xliff:g id="cake_name" example="Cheesecake">%s</xliff:g></string>
 </resources>

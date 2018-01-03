@@ -55,14 +55,6 @@ public class RecipeDetailFragment extends Fragment {
         final Bundle arguments = getArguments();
         final Recipe recipe = (Recipe) arguments.getParcelable(RECIPE_DATA);
 
-        final Button button = (Button) rootView.findViewById(R.id.b_send_to_widget);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                IngredientListWidgetProvider.updateAllWidgets(getContext(), recipe);
-            }
-        });
-
         final RecyclerView ingredientsRecycleView = rootView.findViewById(R.id.rv_ingredients);
         final IngredientAdapter ingredientAdapter = new IngredientAdapter(getContext());
         final List<Ingredient> ingredients = recipe.getIngredients();
