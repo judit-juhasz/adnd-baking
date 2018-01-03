@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import java.util.List;
 
@@ -18,7 +17,6 @@ import name.juhasz.judit.udacity.delicious.adapter.StepAdapter;
 import name.juhasz.judit.udacity.delicious.model.Ingredient;
 import name.juhasz.judit.udacity.delicious.model.Recipe;
 import name.juhasz.judit.udacity.delicious.model.Step;
-import name.juhasz.judit.udacity.delicious.widget.IngredientListWidgetProvider;
 
 public class RecipeDetailFragment extends Fragment {
 

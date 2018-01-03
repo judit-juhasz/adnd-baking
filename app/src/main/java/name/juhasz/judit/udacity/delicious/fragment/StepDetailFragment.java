@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,35 +53,29 @@ public class StepDetailFragment extends Fragment {
                 (SimpleExoPlayerView) rootView.findViewById(R.id.sepv_step_visualization);
         final String videoUrlString = step.getVideoUrl();
         if (null != videoUrlString && !videoUrlString.isEmpty()) {
-            // 1. Create a default TrackSelector
-            Handler mainHandler = new Handler();
+
             BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
             TrackSelection.Factory videoTrackSelectionFactory =
                     new AdaptiveTrackSelection.Factory(bandwidthMeter);
             TrackSelector trackSelector =
                     new DefaultTrackSelector(videoTrackSelectionFactory);
 
-            // 2. Create the player
             final Context context = getContext();
             mVideoPlayer =
                     ExoPlayerFactory.newSimpleInstance(getContext(), trackSelector);
 
-            // Bind the player to the view.
             visualizationSimpleExoPlayerView.setPlayer(mVideoPlayer);
 
-            // Produces DataSource instances through which media data is loaded.
             DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(context,
                     Util.getUserAgent(context, "ExoPlayer"));
-            // Produces Extractor instances for parsing the media data.
+
             ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
-            // This is the MediaSource representing the media to be played.
+
             final Uri videoUri = Uri.parse(videoUrlString);
             MediaSource videoSource = new ExtractorMediaSource(videoUri,
                     dataSourceFactory, extractorsFactory, null, null);
-            // Prepare the player with the source.
             mVideoPlayer.prepare(videoSource);
 
-            // Fullscreen
             if (arguments.getBoolean(FULLSCREEN_VIDEO, false)) {
                 visualizationSimpleExoPlayerView.post(new Runnable() {
                     @Override
