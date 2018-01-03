@@ -2,7 +2,7 @@
     <string name="app_name">Delicious</string>
     <string name="servings_label">Servings: </string>
     <string name="ingredients_label">Ingredients</string>
-    <string name="ingredient_format"><xliff:g id="amount" example="1.2">%s</xliff:g> <xliff:g id="unit" example="Kg">%s</xliff:g> <xliff:g id="ingredient" example="Salt">%s</xliff:g></string>
+    <string name="ingredient_format"><xliff:g id="amount" example="1.2">%s</xliff:g> <xliff:g id="unit" example="Kg">%s</xliff:g></string>
     <string name="steps_label">Steps</string>
     <string name="label_send_to_widget">Send to widget</string>
     <string name="widget_title_no_selection">Ingredients</string>

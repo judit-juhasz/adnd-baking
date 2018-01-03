@@ -55,10 +55,11 @@ public class IngredientListRemoteViewsFactory implements RemoteViewsService.Remo
     public RemoteViews getViewAt(int position) {
         RemoteViews rv = new RemoteViews(mContext.getPackageName(), R.layout.item_ingredient);
         final Ingredient ingredient = mIngredients.get(position);
+        final String ingredientNameText = ingredient.getIngredientName();
         final String ingredientText = mContext.getString(R.string.ingredient_format,
                 String.valueOf(ingredient.getQuantity()),
-                ingredient.getMeasure(),
-                ingredient.getIngredientName());
+                ingredient.getMeasure());
+        rv.setTextViewText(R.id.tv_ingredient_name, ingredientNameText);
         rv.setTextViewText(R.id.tv_ingredient, ingredientText);
         return rv;
     }

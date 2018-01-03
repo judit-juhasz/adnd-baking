@@ -54,11 +54,13 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
 
     public class IngredientViewHolder extends RecyclerView.ViewHolder {
 
+        public TextView ingredientNameTextView;
         public TextView ingredientTextView;
 
         public IngredientViewHolder(final View itemView) {
             super(itemView);
 
+            ingredientNameTextView = (TextView) itemView.findViewById(R.id.tv_ingredient_name);
             ingredientTextView = (TextView) itemView.findViewById(R.id.tv_ingredient);
         }
 
@@ -66,9 +68,9 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
             final Ingredient ingredient = mIngredients[position];
             final String ingredientText = mContext.getString(R.string.ingredient_format,
                     String.valueOf(ingredient.getQuantity()),
-                    ingredient.getMeasure(),
-                    ingredient.getIngredientName());
+                    ingredient.getMeasure());
             ingredientTextView.setText(ingredientText);
+            ingredientNameTextView.setText(ingredient.getIngredientName());
         }
     }
 }
