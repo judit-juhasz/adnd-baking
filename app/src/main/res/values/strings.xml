@@ -5,6 +5,5 @@
     <string name="ingredient_format"><xliff:g id="amount" example="1.2">%s</xliff:g> <xliff:g id="unit" example="Kg">%s</xliff:g></string>
     <string name="steps_label">Steps</string>
     <string name="label_send_to_widget">Send to widget</string>
-    <string name="widget_title_no_selection">Ingredients</string>
-    <string name="widget_title">Ingredients of <xliff:g id="cake_name" example="Cheesecake">%s</xliff:g></string>
+    <string name="widget_empty_text">No recipe is selected. Open Delicious and send a recipe to the widget.</string>
 </resources>

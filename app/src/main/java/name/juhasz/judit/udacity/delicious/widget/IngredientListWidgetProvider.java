@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.view.View;
 import android.widget.RemoteViews;
 
 import com.google.gson.Gson;
@@ -50,29 +51,48 @@ public class IngredientListWidgetProvider extends AppWidgetProvider {
                          final AppWidgetManager appWidgetManager,
                          final int[] appWidgetIds) {
         for (int appWidgetId : appWidgetIds) {
-            final RemoteViews views =
-                    new RemoteViews(context.getPackageName(), R.layout.widget_ingredient_list);
-
-            final SharedPreferences sharedPreferences =
-                    PreferenceManager.getDefaultSharedPreferences(context);
-            final String recipeJson = sharedPreferences.getString("recipe_on_widget",null);
-            final Recipe recipe =
-                    (null == recipeJson) ? null : new Gson().fromJson(recipeJson, Recipe.class);
+            final Recipe recipe = getSelectedRecipe(context);
+            final RemoteViews views = getRemoteViews(context);
             if (null != recipe) {
-                views.setTextViewText(R.id.tv_widget_title,
-                        context.getString(R.string.widget_title, recipe.getName()));
-
-                final Intent serviceIntent = new Intent(context, IngredientListWidgetService.class);
-                serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-                serviceIntent.setData(Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME)));
-                views.setRemoteAdapter(R.id.lv_widget_ingredients, serviceIntent);
+                showIngredientList(views, context, appWidgetId, recipe);
             } else {
-                views.setTextViewText(R.id.tv_widget_title,
-                        context.getString(R.string.widget_title_no_selection));
+                showEmptyMessage(views);
             }
-
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
+    }
+
+    private void showIngredientList(final RemoteViews views,
+                                    final Context context,
+                                    final int appWidgetId,
+                                    final Recipe recipe) {
+        views.setViewVisibility(R.id.tv_empty_widget, View.GONE);
+
+        views.setViewVisibility(R.id.tv_widget_title, View.VISIBLE);
+        views.setTextViewText(R.id.tv_widget_title, recipe.getName());
+
+        views.setViewVisibility(R.id.lv_widget_ingredients, View.VISIBLE);
+        final Intent serviceIntent = new Intent(context, IngredientListWidgetService.class);
+        serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+        serviceIntent.setData(Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME)));
+        views.setRemoteAdapter(R.id.lv_widget_ingredients, serviceIntent);
+    }
+
+    private void showEmptyMessage(final RemoteViews views) {
+        views.setViewVisibility(R.id.tv_widget_title, View.GONE);
+        views.setViewVisibility(R.id.lv_widget_ingredients, View.GONE);
+        views.setViewVisibility(R.id.tv_empty_widget, View.VISIBLE);
+    }
+
+    private RemoteViews getRemoteViews(final Context context) {
+        return new RemoteViews(context.getPackageName(), R.layout.widget_ingredient_list);
+    }
+
+    private Recipe getSelectedRecipe(final Context context) {
+        final SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(context);
+        final String recipeJson = sharedPreferences.getString("recipe_on_widget",null);
+        return (null == recipeJson) ? null : new Gson().fromJson(recipeJson, Recipe.class);
     }
 }

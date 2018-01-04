@@ -3,19 +3,19 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorLightPrimary">
+    android:background="@color/colorWhite">
 
         <TextView
             android:id="@+id/tv_widget_title"
-            android:text="@string/widget_title_no_selection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/colorPrimaryText"
+            android:textColor="@color/colorWhite"
             android:textStyle="bold"
             android:textAllCaps="true"
-            android:layout_margin="@dimen/margin_normal"/>
+            android:padding="@dimen/padding_normal"
+            android:visibility="gone"
+            android:background="@color/colorPrimaryDark"/>
 
         <ListView
             android:id="@+id/lv_widget_ingredients"
@@ -23,7 +23,17 @@
             android:layout_height="wrap_content"
             android:divider="@null"
             android:dividerHeight="@dimen/listview_divider_height"
-            android:layout_marginLeft="@dimen/margin_normal"
-            android:layout_marginRight="@dimen/margin_normal"/>
+            android:visibility="gone"
+            android:padding="@dimen/padding_normal"/>
+
+        <TextView
+            android:id="@+id/tv_empty_widget"
+            android:text="@string/widget_empty_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:gravity="center"
+            android:padding="32dp"
+            android:layout_gravity="center"/>
 
 </LinearLayout>
