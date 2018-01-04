@@ -20,7 +20,7 @@ public class IngredientListWidgetProvider extends AppWidgetProvider {
     public static void updateAllWidgets(final Context context, final Recipe recipe) {
         final SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(context);
-        String json = new Gson().toJson(recipe);
+        final String json = new Gson().toJson(recipe);
         sharedPreferences.edit().putString("recipe_on_widget", json).apply();
         final Class<IngredientListWidgetProvider> widgetProviderClass
                 = IngredientListWidgetProvider.class;

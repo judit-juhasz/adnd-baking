@@ -2,12 +2,13 @@ package name.juhasz.judit.udacity.delicious.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -24,11 +25,15 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepAdapt
     public static final String RECIPE_DATA = "RECIPE_DATA";
 
     private boolean mTwoPaneMode;
+    private CoordinatorLayout coordinatorLayout;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
+
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id
+                .coordinatorLayout);
 
         final Intent intent = getIntent();
 
@@ -74,7 +79,10 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepAdapt
 
         switch (itemId) {
             case R.id.action_send_to_widget:
-                Toast.makeText(context, "Sent to widget", Toast.LENGTH_SHORT).show();
+                Snackbar snackbar = Snackbar
+                        .make(coordinatorLayout, "Sent to widget", Snackbar.LENGTH_SHORT);
+
+                snackbar.show();
                 IngredientListWidgetProvider.updateAllWidgets(context, recipe);
                 break;
         }
