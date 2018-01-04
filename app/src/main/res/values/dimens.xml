@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_small">4dp</dimen>
+    <dimen name="margin_normal">8dp</dimen>
+    <dimen name="margin_large">16dp</dimen>
+    <dimen name="cardview_corner_radius">6dp</dimen>
+    <dimen name="padding_normal">10dp</dimen>
+    <dimen name="width_zero">0dp</dimen>
+    <dimen name="cardview_elevation">1dp</dimen>
+    <dimen name="listview_divider_height">0dp</dimen>
+</resources>

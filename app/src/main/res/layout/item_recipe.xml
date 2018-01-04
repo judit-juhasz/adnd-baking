@@ -9,9 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardPreventCornerOverlap="true"
-        card_view:cardCornerRadius = "6dp"
+        card_view:cardCornerRadius = "@dimen/cardview_corner_radius"
         app:cardUseCompatPadding="true"
-        app:contentPadding="10dp">
+        app:contentPadding="@dimen/padding_normal">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -45,8 +45,8 @@
                 android:textColor="@color/colorSecondaryText"
                 android:layout_toRightOf="@id/tv_servings_label_text"
                 android:layout_alignParentBottom="true"
-                android:paddingLeft="12dp"
-                android:paddingStart="12dp"
+                android:paddingLeft="@dimen/padding_normal"
+                android:paddingStart="@dimen/padding_normal"
                 android:layout_toEndOf="@id/tv_servings_label_text"
                 card_view:ignore="RtlSymmetry" />
 

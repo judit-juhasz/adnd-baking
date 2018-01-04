@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context="name.juhasz.judit.udacity.delicious.activity.RecipeDetailActivity"
-    android:layout_marginLeft="8dp"
-    android:layout_marginRight="8dp">
+    android:layout_marginLeft="@dimen/margin_normal"
+    android:layout_marginRight="@dimen/margin_normal">
 
     <FrameLayout
         android:id="@+id/container_recipe_details"

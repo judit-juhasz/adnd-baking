@@ -11,7 +11,7 @@
     tools:context="name.juhasz.judit.udacity.delicious.activity.RecipeDetailActivity">
 
     <android.support.v4.widget.NestedScrollView
-        android:layout_width="0dp"
+        android:layout_width="@dimen/width_zero"
         android:layout_height="match_parent"
         android:layout_weight="1">
 
@@ -25,7 +25,7 @@
 
     <FrameLayout
         android:id="@+id/container_step_details"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/width_zero"
         android:layout_height="match_parent"
         android:layout_weight="2" >
     </FrameLayout>

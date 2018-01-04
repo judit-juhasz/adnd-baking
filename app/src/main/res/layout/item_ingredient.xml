@@ -3,11 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_marginBottom="4dp">
+    android:layout_marginBottom="@dimen/margin_small">
 
     <TextView
         android:id="@+id/tv_ingredient_name"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/width_zero"
         android:layout_weight="3"
         android:layout_height="wrap_content"
         android:textAllCaps="true"
@@ -16,7 +16,7 @@
 
     <TextView
         android:id="@+id/tv_ingredient"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/width_zero"
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"

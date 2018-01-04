@@ -15,15 +15,15 @@
             android:textColor="@color/colorPrimaryText"
             android:textStyle="bold"
             android:textAllCaps="true"
-            android:layout_margin="8dp"/>
+            android:layout_margin="@dimen/margin_normal"/>
 
         <ListView
             android:id="@+id/lv_widget_ingredients"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:divider="@null"
-            android:dividerHeight="0dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"/>
+            android:dividerHeight="@dimen/listview_divider_height"
+            android:layout_marginLeft="@dimen/margin_normal"
+            android:layout_marginRight="@dimen/margin_normal"/>
 
 </LinearLayout>

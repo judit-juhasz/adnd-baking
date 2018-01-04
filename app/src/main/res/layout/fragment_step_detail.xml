@@ -16,6 +16,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/colorPrimaryText"
-        android:padding="10dp"/>
+        android:padding="@dimen/padding_normal"/>
 
 </LinearLayout>

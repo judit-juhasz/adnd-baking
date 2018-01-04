@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardUseCompatPadding="true"
-    card_view:cardCornerRadius="6dp"
+    card_view:cardCornerRadius="@dimen/cardview_corner_radius"
     card_view:cardPreventCornerOverlap="true"
-    app:cardElevation="1dp">
+    app:cardElevation="@dimen/cardview_elevation">
 
     <TextView
         android:id="@+id/tv_step_short_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="6dp"
+        android:padding="@dimen/padding_normal"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textAllCaps="true"
         android:textColor="@color/colorPrimaryText" />
