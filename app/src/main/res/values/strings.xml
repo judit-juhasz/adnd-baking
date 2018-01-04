@@ -4,6 +4,10 @@
     <string name="ingredients_label">Ingredients</string>
     <string name="ingredient_format"><xliff:g id="amount" example="1.2">%s</xliff:g> <xliff:g id="unit" example="Kg">%s</xliff:g></string>
     <string name="steps_label">Steps</string>
+    <string name="application_name_video_player">Exoplayer</string>
+    <string name="exception_text"> must implement </string>
     <string name="label_send_to_widget">Send to widget</string>
     <string name="widget_empty_text">No recipe is selected. Open Delicious and send a recipe to the widget.</string>
+    <string name="successful_send_to_widget">Sent to widget</string>
+    <string name="step_name_text_format"><xliff:g id="amount" example="1">%d</xliff:g>. <xliff:g id="unit" example="step">%s</xliff:g></string>
 </resources>

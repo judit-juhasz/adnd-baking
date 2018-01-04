@@ -29,9 +29,9 @@ public class RecipeDetailFragment extends Fragment {
         super.onAttach(context);
 
         try {
-            mStepAdapter = new StepAdapter((StepAdapter.OnClickListener) context);
+            mStepAdapter = new StepAdapter(context, (StepAdapter.OnClickListener) context);
         } catch(ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement " +
+            throw new ClassCastException(context.toString() + getString(R.string.exception_text) +
                     StepAdapter.OnClickListener.class.getSimpleName());
         }
     }

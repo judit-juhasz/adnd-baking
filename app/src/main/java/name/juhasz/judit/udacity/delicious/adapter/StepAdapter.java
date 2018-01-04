@@ -11,12 +11,19 @@ import name.juhasz.judit.udacity.delicious.R;
 import name.juhasz.judit.udacity.delicious.model.Step;
 
 public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder>{
+
     public interface OnClickListener {
         void onStepListItemClick(Step step);
     }
 
     private Step[] mSteps = null;
     private OnClickListener mListener;
+    private Context mContext = null;
+
+    public StepAdapter(final Context context, final OnClickListener listener) {
+        mContext = context;
+        mListener = listener;
+    }
 
     @Override
     public StepViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
@@ -35,14 +42,6 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
 
     public void setSteps(final Step[] steps) {
         this.mSteps = steps;
-    }
-
-    public void setListener(final OnClickListener listener) {
-        mListener = listener;
-    }
-
-    public StepAdapter(final OnClickListener listener) {
-        mListener = listener;
     }
 
     @Override
@@ -74,7 +73,7 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
             final Step step = mSteps[position];
             final int id = step.getStepId();
             final String shortDescription = step.getShortDescription();
-            stepNameTextView.setText(id + ". " + shortDescription);
+            stepNameTextView.setText(mContext.getString(R.string.step_name_text_format, id, shortDescription));
         }
 
         @Override

@@ -67,7 +67,7 @@ public class StepDetailFragment extends Fragment {
             visualizationSimpleExoPlayerView.setPlayer(mVideoPlayer);
 
             DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(context,
-                    Util.getUserAgent(context, "ExoPlayer"));
+                    Util.getUserAgent(context, getString(R.string.application_name_video_player)));
 
             ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
 

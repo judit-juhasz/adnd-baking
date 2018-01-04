@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     tools:context="name.juhasz.judit.udacity.delicious.activity.RecipeListActivity"
     android:layout_marginLeft="@dimen/margin_normal"
-    android:layout_marginRight="@dimen/margin_normal">
+    android:layout_marginRight="@dimen/margin_normal"
+    android:layout_marginTop="@dimen/margin_normal">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_recipes"

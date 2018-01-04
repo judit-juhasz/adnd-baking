@@ -80,7 +80,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepAdapt
         switch (itemId) {
             case R.id.action_send_to_widget:
                 Snackbar snackbar = Snackbar
-                        .make(coordinatorLayout, "Sent to widget", Snackbar.LENGTH_SHORT);
+                        .make(coordinatorLayout, getString(R.string.successful_send_to_widget), Snackbar.LENGTH_SHORT);
 
                 snackbar.show();
                 IngredientListWidgetProvider.updateAllWidgets(context, recipe);

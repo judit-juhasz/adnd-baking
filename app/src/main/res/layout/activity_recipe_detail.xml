@@ -4,13 +4,14 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="name.juhasz.judit.udacity.delicious.activity.RecipeDetailActivity"
-    android:layout_marginLeft="@dimen/margin_normal"
-    android:layout_marginRight="@dimen/margin_normal">
+    tools:context="name.juhasz.judit.udacity.delicious.activity.RecipeDetailActivity">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/padding_normal"
+        android:paddingRight="@dimen/padding_normal"
+        android:paddingLeft="@dimen/padding_normal">
 
         <FrameLayout
             android:id="@+id/container_recipe_details"
