@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
@@ -38,7 +39,11 @@ public class StepDetailFragment extends Fragment {
     public static final String VIDEO_POSITION_KEY = "VIDEO_POSITION_KEY";
     public static final String VIDEO_PLAYING_KEY = "VIDEO_PLAYING_KEY";
 
+    private String mVideoUrl = null;
+    private SimpleExoPlayerView mVideoPlayerView;
     private SimpleExoPlayer mVideoPlayer = null;
+    private long mCurrentVideoPosition = C.INDEX_UNSET;
+    private boolean mPlayVideoWhenReady = true;
 
     @Nullable
     @Override
@@ -48,56 +53,31 @@ public class StepDetailFragment extends Fragment {
         final View rootView =
                 inflater.inflate(R.layout.fragment_step_detail, container, false);
 
+        mVideoPlayerView = (SimpleExoPlayerView) rootView.findViewById(R.id.sepv_step_visualization);
         final Bundle arguments = getArguments();
         final Step step = (Step) arguments.getParcelable(STEP_DATA);
-
-        final SimpleExoPlayerView visualizationSimpleExoPlayerView =
-                (SimpleExoPlayerView) rootView.findViewById(R.id.sepv_step_visualization);
-        final String videoUrlString = step.getVideoUrl();
-        if (null != videoUrlString && !videoUrlString.isEmpty()) {
-
-            BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
-            TrackSelection.Factory videoTrackSelectionFactory =
-                    new AdaptiveTrackSelection.Factory(bandwidthMeter);
-            TrackSelector trackSelector =
-                    new DefaultTrackSelector(videoTrackSelectionFactory);
-
-            final Context context = getContext();
-            mVideoPlayer =
-                    ExoPlayerFactory.newSimpleInstance(getContext(), trackSelector);
-
-            visualizationSimpleExoPlayerView.setPlayer(mVideoPlayer);
-
-            DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(context,
-                    Util.getUserAgent(context, getString(R.string.application_name_video_player)));
-
-            ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
-
-            final Uri videoUri = Uri.parse(videoUrlString);
-            MediaSource videoSource = new ExtractorMediaSource(videoUri,
-                    dataSourceFactory, extractorsFactory, null, null);
-            mVideoPlayer.prepare(videoSource);
-
+        mVideoUrl = step.getVideoUrl();
+        if (null != mVideoUrl && !mVideoUrl.isEmpty()) {
             if (null != savedInstanceState && savedInstanceState.containsKey(VIDEO_POSITION_KEY)
                     && savedInstanceState.containsKey(VIDEO_PLAYING_KEY)) {
-                final long videoPosition = savedInstanceState.getLong(VIDEO_POSITION_KEY);
-                mVideoPlayer.seekTo(videoPosition);
-                final boolean setPlayWhenReady = savedInstanceState.getBoolean(VIDEO_PLAYING_KEY);
-                mVideoPlayer.setPlayWhenReady(setPlayWhenReady);
+                mCurrentVideoPosition = savedInstanceState.getLong(VIDEO_POSITION_KEY);
+                mPlayVideoWhenReady = savedInstanceState.getBoolean(VIDEO_PLAYING_KEY);
             }
 
+            initializeVideoPlayer();
+
             if (arguments.getBoolean(FULLSCREEN_VIDEO, false)) {
-                visualizationSimpleExoPlayerView.post(new Runnable() {
+                mVideoPlayerView.post(new Runnable() {
                     @Override
                     public void run() {
                         final int fullscreenHeight = rootView.getLayoutParams().height;
-                        visualizationSimpleExoPlayerView.getLayoutParams().height = fullscreenHeight;
-                        visualizationSimpleExoPlayerView.requestLayout();
+                        mVideoPlayerView.getLayoutParams().height = fullscreenHeight;
+                        mVideoPlayerView.requestLayout();
                     }
                 });
             }
         } else {
-            visualizationSimpleExoPlayerView.setVisibility(View.GONE);
+            mVideoPlayerView.setVisibility(View.GONE);
         }
 
         final TextView description = (TextView) rootView.findViewById(R.id.tv_step_description);
@@ -107,17 +87,78 @@ public class StepDetailFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putLong(VIDEO_POSITION_KEY, mVideoPlayer.getCurrentPosition());
-        outState.putBoolean(VIDEO_PLAYING_KEY, mVideoPlayer.getPlayWhenReady());
+    public void onStart() {
+        super.onStart();
+        initializeVideoPlayer();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initializeVideoPlayer();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        releaseVideoPlayer();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        releaseVideoPlayer();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        releaseVideoPlayer();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong(VIDEO_POSITION_KEY, mCurrentVideoPosition);
+        outState.putBoolean(VIDEO_PLAYING_KEY, mPlayVideoWhenReady);
+    }
+
+    private void initializeVideoPlayer() {
+        if (null == mVideoPlayer && null != mVideoUrl && null != mVideoPlayerView) {
+            final BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
+            final TrackSelection.Factory videoTrackSelectionFactory =
+                    new AdaptiveTrackSelection.Factory(bandwidthMeter);
+            final TrackSelector trackSelector =
+                    new DefaultTrackSelector(videoTrackSelectionFactory);
+            final Context context = getContext();
+            mVideoPlayer = ExoPlayerFactory.newSimpleInstance(context, trackSelector);
+
+            mVideoPlayerView.setPlayer(mVideoPlayer);
+
+            final DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(context,
+                    Util.getUserAgent(context, getString(R.string.application_name_video_player)));
+            final ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
+            final Uri videoUri = Uri.parse(mVideoUrl);
+            final MediaSource videoSource = new ExtractorMediaSource(videoUri,
+                    dataSourceFactory, extractorsFactory, null, null);
+            mVideoPlayer.prepare(videoSource);
+            mVideoPlayer.setPlayWhenReady(mPlayVideoWhenReady);
+            mVideoPlayer.seekTo(mCurrentVideoPosition);
+            mVideoPlayerView.requestFocus();
+        }
+
+    }
+
+    private void releaseVideoPlayer() {
+        if (null != mVideoPlayerView) {
+            mVideoPlayerView.setPlayer(null);
+        }
+
         if (null != mVideoPlayer) {
+            mCurrentVideoPosition = mVideoPlayer.getCurrentPosition();
+            mPlayVideoWhenReady = mPlayVideoWhenReady;
             mVideoPlayer.release();
+            mVideoPlayer = null;
         }
     }
 }
