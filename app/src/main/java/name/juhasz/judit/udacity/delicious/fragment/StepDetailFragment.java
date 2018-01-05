@@ -3,12 +3,12 @@ package name.juhasz.judit.udacity.delicious.fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.C;
@@ -28,6 +28,7 @@ import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.squareup.picasso.Picasso;
 
 import name.juhasz.judit.udacity.delicious.R;
 import name.juhasz.judit.udacity.delicious.model.Step;
@@ -40,10 +41,12 @@ public class StepDetailFragment extends Fragment {
     public static final String VIDEO_PLAYING_KEY = "VIDEO_PLAYING_KEY";
 
     private String mVideoUrl = null;
-    private SimpleExoPlayerView mVideoPlayerView;
+    private SimpleExoPlayerView mVideoPlayerView = null;
     private SimpleExoPlayer mVideoPlayer = null;
     private long mCurrentVideoPosition = C.INDEX_UNSET;
     private boolean mPlayVideoWhenReady = true;
+    private String mThumbnailUrl = null;
+    private ImageView mThumbnailImageView = null;
 
     @Nullable
     @Override
@@ -54,9 +57,13 @@ public class StepDetailFragment extends Fragment {
                 inflater.inflate(R.layout.fragment_step_detail, container, false);
 
         mVideoPlayerView = (SimpleExoPlayerView) rootView.findViewById(R.id.sepv_step_visualization);
+        mVideoPlayerView.setPlayer(null);
+        mThumbnailImageView = rootView.findViewById(R.id.iv_step_visualization);
+
         final Bundle arguments = getArguments();
         final Step step = (Step) arguments.getParcelable(STEP_DATA);
         mVideoUrl = step.getVideoUrl();
+        mThumbnailUrl = step.getThumbnailUrl();
         if (null != mVideoUrl && !mVideoUrl.isEmpty()) {
             if (null != savedInstanceState && savedInstanceState.containsKey(VIDEO_POSITION_KEY)
                     && savedInstanceState.containsKey(VIDEO_PLAYING_KEY)) {
@@ -64,6 +71,7 @@ public class StepDetailFragment extends Fragment {
                 mPlayVideoWhenReady = savedInstanceState.getBoolean(VIDEO_PLAYING_KEY);
             }
 
+            showVideoViewOnly();
             initializeVideoPlayer();
 
             if (arguments.getBoolean(FULLSCREEN_VIDEO, false)) {
@@ -76,8 +84,13 @@ public class StepDetailFragment extends Fragment {
                     }
                 });
             }
+        } else if (null != mThumbnailUrl && !mThumbnailUrl.isEmpty()) {
+            showImageViewOnly();
+            Picasso.with(getContext())
+                    .load(Uri.parse(mThumbnailUrl))
+                    .into(mThumbnailImageView);
         } else {
-            mVideoPlayerView.setVisibility(View.GONE);
+            hideImageAndVideoViews();
         }
 
         final TextView description = (TextView) rootView.findViewById(R.id.tv_step_description);
@@ -159,6 +172,29 @@ public class StepDetailFragment extends Fragment {
             mPlayVideoWhenReady = mPlayVideoWhenReady;
             mVideoPlayer.release();
             mVideoPlayer = null;
+        }
+    }
+
+    private void hideImageAndVideoViews() {
+        if (null != mVideoPlayerView) {
+            mVideoPlayerView.setVisibility(View.GONE);
+        }
+        if (null != mThumbnailImageView) {
+            mThumbnailImageView.setVisibility(View.GONE);
+        }
+    }
+
+    private void showVideoViewOnly() {
+        hideImageAndVideoViews();
+        if (null != mVideoPlayerView) {
+            mVideoPlayerView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void showImageViewOnly() {
+        hideImageAndVideoViews();
+        if (null != mThumbnailImageView) {
+            mThumbnailImageView.setVisibility(View.VISIBLE);
         }
     }
 }

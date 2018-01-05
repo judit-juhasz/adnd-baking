@@ -10,4 +10,5 @@
     <string name="widget_empty_text">No recipe is selected. Open Delicious and send a recipe to the widget.</string>
     <string name="successful_send_to_widget">Sent to widget</string>
     <string name="step_name_text_format"><xliff:g id="amount" example="1">%d</xliff:g>. <xliff:g id="unit" example="step">%s</xliff:g></string>
+    <string name="image_description_visualization_of_the_step">Visualization of the step</string>
 </resources>

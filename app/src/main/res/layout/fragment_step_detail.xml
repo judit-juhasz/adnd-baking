@@ -10,6 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <ImageView
+        android:id="@+id/iv_step_visualization"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/image_description_visualization_of_the_step" />
+
     <TextView
         android:id="@+id/tv_step_description"
         android:layout_width="match_parent"
