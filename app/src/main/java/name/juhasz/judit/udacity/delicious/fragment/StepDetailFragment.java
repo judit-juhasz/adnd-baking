@@ -55,16 +55,12 @@ public class StepDetailFragment extends Fragment {
                              @Nullable final Bundle savedInstanceState) {
         final View rootView =
                 inflater.inflate(R.layout.fragment_step_detail, container, false);
-
-        mVideoPlayerView = (SimpleExoPlayerView) rootView.findViewById(R.id.sepv_step_visualization);
-        mVideoPlayerView.setPlayer(null);
-        mThumbnailImageView = rootView.findViewById(R.id.iv_step_visualization);
-
         final Bundle arguments = getArguments();
         final Step step = (Step) arguments.getParcelable(STEP_DATA);
         mVideoUrl = step.getVideoUrl();
         mThumbnailUrl = step.getThumbnailUrl();
         if (null != mVideoUrl && !mVideoUrl.isEmpty()) {
+            mVideoPlayerView = (SimpleExoPlayerView) rootView.findViewById(R.id.sepv_step_visualization);
             if (null != savedInstanceState && savedInstanceState.containsKey(VIDEO_POSITION_KEY)
                     && savedInstanceState.containsKey(VIDEO_PLAYING_KEY)) {
                 mCurrentVideoPosition = savedInstanceState.getLong(VIDEO_POSITION_KEY);
@@ -85,6 +81,7 @@ public class StepDetailFragment extends Fragment {
                 });
             }
         } else if (null != mThumbnailUrl && !mThumbnailUrl.isEmpty()) {
+            mThumbnailImageView = rootView.findViewById(R.id.iv_step_visualization);
             showImageViewOnly();
             Picasso.with(getContext())
                     .load(Uri.parse(mThumbnailUrl))
@@ -169,7 +166,7 @@ public class StepDetailFragment extends Fragment {
 
         if (null != mVideoPlayer) {
             mCurrentVideoPosition = mVideoPlayer.getCurrentPosition();
-            mPlayVideoWhenReady = mPlayVideoWhenReady;
+            mPlayVideoWhenReady = mVideoPlayer.getPlayWhenReady();
             mVideoPlayer.release();
             mVideoPlayer = null;
         }
