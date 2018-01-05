@@ -23,7 +23,7 @@ public class StepDetailActivity extends AppCompatActivity {
 
         final Intent intent = getIntent();
 
-        if (null != intent && intent.hasExtra(STEP_DATA)) {
+        if (null != intent && intent.hasExtra(STEP_DATA) && savedInstanceState == null) {
             final Step step = intent.getParcelableExtra(STEP_DATA);
 
             final StepDetailFragment fragment = new StepDetailFragment();
