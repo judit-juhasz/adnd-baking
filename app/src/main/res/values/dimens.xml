@@ -8,6 +8,6 @@
     <dimen name="width_zero">0dp</dimen>
     <dimen name="cardview_elevation">1dp</dimen>
     <dimen name="listview_divider_height">0dp</dimen>
-    <dimen name="widget_min_width">280dp</dimen>
+    <dimen name="widget_min_width">150dp</dimen>
     <dimen name="widget_min_height">120dp</dimen>
 </resources>
