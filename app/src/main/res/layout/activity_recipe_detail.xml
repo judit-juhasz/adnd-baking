@@ -7,6 +7,7 @@
     tools:context="name.juhasz.judit.udacity.delicious.activity.RecipeDetailActivity">
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nsv_recipe_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/padding_normal"
