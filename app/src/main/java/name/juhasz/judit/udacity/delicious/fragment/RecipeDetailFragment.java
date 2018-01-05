@@ -1,6 +1,7 @@
 package name.juhasz.judit.udacity.delicious.fragment;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -52,6 +56,14 @@ public class RecipeDetailFragment extends Fragment {
 
         final Bundle arguments = getArguments();
         final Recipe recipe = (Recipe) arguments.getParcelable(RECIPE_DATA);
+
+        final String recipeImagePath = recipe.getRecipeImagePath();
+        if (null != recipeImagePath && !recipeImagePath.isEmpty()) {
+            final ImageView ingredientsHeader = rootView.findViewById(R.id.iv_recipe_visualization);
+            Picasso.with(getContext())
+                    .load(Uri.parse(recipeImagePath))
+                    .into(ingredientsHeader);
+        }
 
         final RecyclerView ingredientsRecycleView = rootView.findViewById(R.id.rv_ingredients);
         final IngredientAdapter ingredientAdapter = new IngredientAdapter(getContext());
