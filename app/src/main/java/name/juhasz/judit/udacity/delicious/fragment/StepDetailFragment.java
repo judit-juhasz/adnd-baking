@@ -35,6 +35,8 @@ public class StepDetailFragment extends Fragment {
 
     public static final String STEP_DATA = "STEP_DATA";
     public static final String FULLSCREEN_VIDEO = "FULLSCREEN_VIDEO";
+    public static final String VIDEO_POSITION_KEY = "VIDEO_POSITION_KEY";
+    public static final String VIDEO_PLAYING_KEY = "VIDEO_PLAYING_KEY";
 
     private SimpleExoPlayer mVideoPlayer = null;
 
@@ -76,6 +78,14 @@ public class StepDetailFragment extends Fragment {
                     dataSourceFactory, extractorsFactory, null, null);
             mVideoPlayer.prepare(videoSource);
 
+            if (null != savedInstanceState && savedInstanceState.containsKey(VIDEO_POSITION_KEY)
+                    && savedInstanceState.containsKey(VIDEO_PLAYING_KEY)) {
+                final long videoPosition = savedInstanceState.getLong(VIDEO_POSITION_KEY);
+                mVideoPlayer.seekTo(videoPosition);
+                final boolean setPlayWhenReady = savedInstanceState.getBoolean(VIDEO_PLAYING_KEY);
+                mVideoPlayer.setPlayWhenReady(setPlayWhenReady);
+            }
+
             if (arguments.getBoolean(FULLSCREEN_VIDEO, false)) {
                 visualizationSimpleExoPlayerView.post(new Runnable() {
                     @Override
@@ -94,6 +104,13 @@ public class StepDetailFragment extends Fragment {
         description.setText(step.getDescription());
 
         return rootView;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong(VIDEO_POSITION_KEY, mVideoPlayer.getCurrentPosition());
+        outState.putBoolean(VIDEO_PLAYING_KEY, mVideoPlayer.getPlayWhenReady());
     }
 
     @Override
