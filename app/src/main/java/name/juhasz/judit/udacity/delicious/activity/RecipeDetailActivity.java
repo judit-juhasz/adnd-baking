@@ -116,6 +116,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepAdapt
     }
 
     private boolean isTwoPaneMode() {
-        return findViewById(R.id.container_step_details) != null;
+        return getResources().getBoolean(R.bool.tablet_device);
     }
 }
